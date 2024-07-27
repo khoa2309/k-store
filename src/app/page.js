@@ -1,113 +1,229 @@
-import Image from "next/image";
+"use client";
+
+import Card from "@/components/Card/page";
+import { MyPagination } from "@/components/Pagination/page";
+import SideBar from "@/components/SideBar/page";
+import { useState } from "react";
+
+const cardData = [
+    {
+        link: "/img/product/nike/jordan2.jpg",
+        name: "Air Jordan 1 High OG Heritage",
+        oldPrice: "2.000.000đ",
+        newPrice: "1.899.000đ",
+        liked: false,
+        star: 5,
+        sold: "33 đã bán",
+        brand: "Nike",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/nike/jordan1.png",
+        name: "Air Jordan 1 High OG UNC University Blue",
+        oldPrice: "1.200.000đ",
+        newPrice: "999.000đ",
+        liked: true,
+        star: 4,
+        sold: "88 đã bán",
+        brand: "Nike",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/nike/jordan3.jpg",
+        name: "Air Jordan 1 Low Vintage Grey",
+        oldPrice: "1.500.000đ",
+        newPrice: "1.199.000đ",
+        liked: false,
+        star: 3,
+        sold: "30 đã bán",
+        brand: "Nike",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/nike/jordan4.jpg",
+        name: "Air Jordan 1 Mid Smoke Grey",
+        oldPrice: "1.000.000đ",
+        newPrice: "899.000đ",
+        liked: false,
+        star: 3,
+        sold: "3 đã bán",
+        brand: "Nike",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/nike/jordan5.jpg",
+        name: "Air Force 1 White Black Đen Trắng Siêu Cấp",
+        oldPrice: "5.000.000đ",
+        newPrice: "4.899.000đ",
+        liked: false,
+        star: 5,
+        sold: "2 đã bán",
+        brand: "Nike",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/nike/jordan6.jpg",
+        name: "Air Force 1 Para Noise",
+        oldPrice: "4.000.000đ",
+        newPrice: "3.699.000đ",
+        liked: true,
+        star: 5,
+        sold: "10 đã bán",
+        brand: "Nike",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/balenciaga/balen2.jpeg",
+        name: "Balenciaga Speed Trainer 'Grey Logo'",
+        oldPrice: "10.000.000đ",
+        newPrice: "9.899.000đ",
+        liked: false,
+        star: 5,
+        sold: "1 đã bán",
+        brand: "Balenciaga",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/balenciaga/balen3.jpeg",
+        name: "Balenciaga Triple S Logotype Trainers 'Black'",
+        oldPrice: "20.000.000đ",
+        newPrice: "19.899.000đ",
+        liked: false,
+        star: 5,
+        sold: "0 đã bán",
+        brand: "Balenciaga",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/balenciaga/balen1.jpg",
+        name: "Balenciaga Triple S",
+        oldPrice: "3.500.000đ",
+        newPrice: "3.299.000đ",
+        liked: true,
+        star: 5,
+        sold: "20 đã bán",
+        brand: "Balenciaga",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/adidas/adidas1.jpg",
+        name: "Stan Smith",
+        oldPrice: "5.500.000đ",
+        newPrice: "4.500.000đ",
+        liked: false,
+        star: 5,
+        sold: "1 đã bán",
+        brand: "Adidas",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/adidas/adidas2.jpg",
+        name: "Superstar Hanimi",
+        oldPrice: "2.600.000đ",
+        newPrice: "1.560.000đ",
+        liked: false,
+        star: 5,
+        sold: "10 đã bán",
+        brand: "Adidas",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/adidas/adidas3.jpg",
+        name: "Campus Youth Of PARIS",
+        oldPrice: "3.300.000đ",
+        newPrice: "1.980.000đ",
+        liked: false,
+        star: 5,
+        sold: "5 đã bán",
+        brand: "Adidas",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/adidas/adidas4.jpg",
+        name: "Goft Đinh Liền Stan Smith Primegreen Special Edition",
+        oldPrice: "3.400.000đ",
+        newPrice: "2.380.000đ",
+        liked: false,
+        star: 5,
+        sold: "5 đã bán",
+        brand: "Adidas",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/vans/vans1.jpg",
+        name: "Skate Old Skool Black/White",
+        oldPrice: "2.300.000đ",
+        newPrice: "2.200.000đ",
+        liked: false,
+        star: 5,
+        sold: "5 đã bán",
+        brand: "Vans",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/vans/vans2.jpg",
+        name: "Old Skool Vans Club White",
+        oldPrice: "2.700.000đ",
+        newPrice: "2.500.000đ",
+        liked: false,
+        star: 5,
+        sold: "5 đã bán",
+        brand: "Vans",
+        origin: "USA",
+    },
+    {
+        link: "/img/product/vans/vans3.jpg",
+        name: "Era Classic Sport Black/Waterfall",
+        oldPrice: "1.700.000đ",
+        newPrice: "1.450.000đ",
+        liked: false,
+        star: 5,
+        sold: "5 đã bán",
+        brand: "Vans",
+        origin: "USA",
+    },
+];
+
+const ITEMS_PER_PAGE = 8;
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    const [currentPage, setCurrentPage] = useState(
+        1
+        // localStorage.getItem("currentPage") || 1
+    );
+
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const currentCards = cardData.slice(
+        startIndex,
+        startIndex + ITEMS_PER_PAGE
+    );
+
+    const totalPages = Math.ceil(cardData.length / ITEMS_PER_PAGE);
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        // localStorage.setItem("currentPage", page);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    };
+    return (
+        <div className="grid grid-cols-12 pb-10 wrap">
+            <section className="hidden md:col-span-2 md:block">
+                <SideBar />
+            </section>
+
+            <section className="col-span-12 md:col-span-10 ">
+                <section className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-10">
+                    {" "}
+                    {currentCards.map((d, i) => (
+                        <Card key={i} {...d} />
+                    ))}
+                </section>
+                <MyPagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                />
+            </section>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  );
+    );
 }
