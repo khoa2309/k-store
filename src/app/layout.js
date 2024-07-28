@@ -2,6 +2,7 @@ import { Roboto } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header/page";
 import { ThemeProvider } from "@/components/theme-provider";
+import Footer from "@/components/Footer/page";
 
 const roboto = Roboto({
     subsets: ["latin"],
@@ -16,7 +17,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en" suppressHydrationWarning>
-            <body className={roboto.className}>
+            <body className={`select-none ${roboto.className}`}>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
@@ -24,7 +25,10 @@ export default function RootLayout({ children }) {
                     disableTransitionOnChange
                 >
                     <Header />
-                    {children}
+                    <div className="border-b-blue-500 border-b-4">
+                        {children}
+                    </div>
+                    <Footer />
                 </ThemeProvider>
             </body>
         </html>

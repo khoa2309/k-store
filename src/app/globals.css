@@ -74,4 +74,8 @@
   .wrap {
     @apply max-w-[80rem] mx-auto;
   }
+
+  .hover-nav {
+    @apply hover:opacity-60 transition-all
+  }
 }

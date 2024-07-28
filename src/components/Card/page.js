@@ -14,19 +14,26 @@ export default function Card(props) {
     const fullStars = Math.floor(props.star);
     const hasHalfStar = props.star % 1 !== 0;
     return (
-        <CardContent>
-            <section
-                className="w-full h-40 bg-cover bg-center pt-[100%]"
-                style={{ backgroundImage: `url(${props.link})` }}
-            ></section>
-
+        <CardContent
+            href={"#"}
+            className={
+                "group hover:shadow-lg hover:-translate-y-2 transition-all"
+            }
+        >
+            <div className="overflow-hidden">
+                {" "}
+                <section
+                    className="w-full h-40 bg-cover bg-center pt-[100%] group-hover:scale-125 transition-all"
+                    style={{ backgroundImage: `url(${props.link})` }}
+                ></section>
+            </div>
             <section className="p-2 flex flex-col gap-2">
-                <p className="text-sm">{props.name}</p>
+                <p className="text-sm line-clamp-2">{props.name}</p>
                 <p className="flex items-center justify-between flex-wrap">
                     <span className="line-through text-gray-500">
                         {props.oldPrice}
                     </span>
-                    <span> {props.newPrice}</span>
+                    <span className="text-blue-500">{props.newPrice}</span>
                 </p>
                 <p className="flex items-center justify-between flex-wrap">
                     <span>
@@ -74,10 +81,10 @@ export default function Card(props) {
 }
 export function CardContent({ className, ...props }) {
     return (
-        <div
+        <a
             {...props}
             className={cn(
-                "rounded-xl border shadow overflow-hidden",
+                "rounded-xl border shadow overflow-hidden flex flex-col",
                 className
             )}
         />

@@ -3,6 +3,7 @@
 import Card from "@/components/Card/page";
 import { MyPagination } from "@/components/Pagination/page";
 import SideBar from "@/components/SideBar/page";
+import { MySelect } from "@/components/SortSelect/page";
 import { useState } from "react";
 
 const cardData = [
@@ -13,7 +14,7 @@ const cardData = [
         newPrice: "1.899.000đ",
         liked: false,
         star: 5,
-        sold: "33 đã bán",
+        sold: "33 sold",
         brand: "Nike",
         origin: "USA",
     },
@@ -23,8 +24,8 @@ const cardData = [
         oldPrice: "1.200.000đ",
         newPrice: "999.000đ",
         liked: true,
-        star: 4,
-        sold: "88 đã bán",
+        star: 2.5,
+        sold: "88 sold",
         brand: "Nike",
         origin: "USA",
     },
@@ -35,7 +36,7 @@ const cardData = [
         newPrice: "1.199.000đ",
         liked: false,
         star: 3,
-        sold: "30 đã bán",
+        sold: "30 sold",
         brand: "Nike",
         origin: "USA",
     },
@@ -46,7 +47,7 @@ const cardData = [
         newPrice: "899.000đ",
         liked: false,
         star: 3,
-        sold: "3 đã bán",
+        sold: "3 sold",
         brand: "Nike",
         origin: "USA",
     },
@@ -57,7 +58,7 @@ const cardData = [
         newPrice: "4.899.000đ",
         liked: false,
         star: 5,
-        sold: "2 đã bán",
+        sold: "2 sold",
         brand: "Nike",
         origin: "USA",
     },
@@ -68,7 +69,7 @@ const cardData = [
         newPrice: "3.699.000đ",
         liked: true,
         star: 5,
-        sold: "10 đã bán",
+        sold: "10 sold",
         brand: "Nike",
         origin: "USA",
     },
@@ -79,7 +80,7 @@ const cardData = [
         newPrice: "9.899.000đ",
         liked: false,
         star: 5,
-        sold: "1 đã bán",
+        sold: "1 sold",
         brand: "Balenciaga",
         origin: "USA",
     },
@@ -90,7 +91,7 @@ const cardData = [
         newPrice: "19.899.000đ",
         liked: false,
         star: 5,
-        sold: "0 đã bán",
+        sold: "0 sold",
         brand: "Balenciaga",
         origin: "USA",
     },
@@ -101,7 +102,7 @@ const cardData = [
         newPrice: "3.299.000đ",
         liked: true,
         star: 5,
-        sold: "20 đã bán",
+        sold: "20 sold",
         brand: "Balenciaga",
         origin: "USA",
     },
@@ -112,7 +113,7 @@ const cardData = [
         newPrice: "4.500.000đ",
         liked: false,
         star: 5,
-        sold: "1 đã bán",
+        sold: "1 sold",
         brand: "Adidas",
         origin: "USA",
     },
@@ -123,7 +124,7 @@ const cardData = [
         newPrice: "1.560.000đ",
         liked: false,
         star: 5,
-        sold: "10 đã bán",
+        sold: "10 sold",
         brand: "Adidas",
         origin: "USA",
     },
@@ -134,7 +135,7 @@ const cardData = [
         newPrice: "1.980.000đ",
         liked: false,
         star: 5,
-        sold: "5 đã bán",
+        sold: "5 sold",
         brand: "Adidas",
         origin: "USA",
     },
@@ -145,7 +146,7 @@ const cardData = [
         newPrice: "2.380.000đ",
         liked: false,
         star: 5,
-        sold: "5 đã bán",
+        sold: "5 sold",
         brand: "Adidas",
         origin: "USA",
     },
@@ -156,7 +157,7 @@ const cardData = [
         newPrice: "2.200.000đ",
         liked: false,
         star: 5,
-        sold: "5 đã bán",
+        sold: "5 sold",
         brand: "Vans",
         origin: "USA",
     },
@@ -167,7 +168,7 @@ const cardData = [
         newPrice: "2.500.000đ",
         liked: false,
         star: 5,
-        sold: "5 đã bán",
+        sold: "5 sold",
         brand: "Vans",
         origin: "USA",
     },
@@ -178,7 +179,7 @@ const cardData = [
         newPrice: "1.450.000đ",
         liked: false,
         star: 5,
-        sold: "5 đã bán",
+        sold: "5 sold",
         brand: "Vans",
         origin: "USA",
     },
@@ -187,10 +188,7 @@ const cardData = [
 const ITEMS_PER_PAGE = 8;
 
 export default function Home() {
-    const [currentPage, setCurrentPage] = useState(
-        1
-        // localStorage.getItem("currentPage") || 1
-    );
+    const [currentPage, setCurrentPage] = useState(1);
 
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const currentCards = cardData.slice(
@@ -202,17 +200,17 @@ export default function Home() {
 
     const handlePageChange = (page) => {
         setCurrentPage(page);
-        // localStorage.setItem("currentPage", page);
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
     return (
-        <div className="grid grid-cols-12 pb-10 wrap">
-            <section className="hidden md:col-span-2 md:block">
+        <div className="grid grid-cols-12 pb-10 wrap mt-10">
+            <section className="col-span-12 md:col-span-2 pr-5">
                 <SideBar />
             </section>
 
-            <section className="col-span-12 md:col-span-10 ">
-                <section className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-10">
+            <section className="col-span-12 md:col-span-10">
+                <MySelect />
+                <section className="grid grid-cols-2 md:grid-cols-4 gap-4 pb-10 mt-5">
                     {" "}
                     {currentCards.map((d, i) => (
                         <Card key={i} {...d} />

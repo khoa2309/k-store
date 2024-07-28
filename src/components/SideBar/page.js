@@ -4,12 +4,12 @@ import { Category } from "../Category/page";
 export default function SideBar() {
     return (
         <Fragment>
-            <p className="uppercase text-lg font-bold">Danh mục</p>
+            <p className="uppercase text-lg font-bold mb-5">Category</p>
             <Category
                 isCollapsed={false}
                 links={[
                     {
-                        title: "Tất cả",
+                        title: "All",
                         variant: "default",
                     },
                     {
