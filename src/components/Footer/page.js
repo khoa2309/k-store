@@ -121,7 +121,7 @@ export default function Footer() {
                     <p className="uppercase text-lg font-bold mb-5">
                         Visit Our Store on the App
                     </p>
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 justify-center md:justify-start">
                         <img
                             src={"/img/qrcode.jpg"}
                             alt="qrcode"
